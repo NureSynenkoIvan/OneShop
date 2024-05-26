@@ -1,0 +1,151 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId            String     @default(uuid()) @id
+  userEmail         String  @unique
+  userName          String?
+  userPassword      String 
+  userPhoneNumber   String? 
+  userBonusAccount  String?
+  userInterfaceLanguage Boolean @default(false)
+  userNotification      Boolean @default(false)
+  userRole              Role @default(USER)
+  userPhoto             String? 
+  usersProductQuantities  UsersProductQuantity[]
+  orders                 Order[] 
+}
+
+model Order {
+  orderId           String @default(uuid()) @id
+  user User @relation(fields: [userOrderId], references: [userId]) 
+  userOrderId       String
+  orderDate         DateTime @default(now()) 
+  receiver          String
+  receiverPhone     String
+  paymentMethod     PaymentMethod  @default(UPON_RECEIPT)
+  delivery          Delivery?
+  orderProductQuantities OrderProductQuantity[]  
+}
+
+model OrderProductQuantity {
+  orderProductQuantityId           String @default(uuid()) @id
+  order Order @relation(fields: [orderProductId], references: [orderId])
+  orderProductId   String @unique 
+  product Product @relation(fields: [orderProductQuantityProductId], references: [productId])
+  orderProductQuantityProductId   String @unique 
+  productQuantity                 Int
+}
+
+model Delivery {
+  deliveryId        String @default(uuid()) @id
+  deliveryMethod    DeliveryMethod  @default(STORE)
+  deliveryAddress   String?
+  deliveryCity      String?
+  deliveryPrice     String
+  order             Order @relation(fields: [deliveryOrderId], references: [orderId], onDelete: Cascade)
+  deliveryOrderId   String @unique
+}
+
+model UsersProductQuantity {
+  usersProductQuantityId String @default(uuid()) @id
+  productQuantity Int
+  product Product @relation(fields: [productId], references: [productId])
+  productId String
+  user User @relation(fields: [userId], references: [userId])
+  userId     String  
+}
+
+model Product {
+  productId         String @default(uuid()) @id
+  productName       String
+  productDescription String?
+  productBrand       String
+  subcategoryId     String
+  subcategory       Subcategory @relation(fields: [subcategoryId], references: [subcategoryId])
+  productShop ProductShop[]
+  usersProductQuantities UsersProductQuantity[]  
+  orderProductQuantities OrderProductQuantity[]  
+}
+
+model ProductShop {
+  productShopId String @default(uuid()) @id
+  shop Shop @relation(fields: [shopID], references: [shopId], onDelete: Cascade)
+  shopID            String
+  product Product  @relation(fields: [productID], references: [productId], onDelete: Cascade)
+  productID         String
+  productQuantity   Int 
+}
+
+model Shop {
+  shopId            String @default(uuid()) @id
+  shopAdress        String
+  shopOpen          DateTime @default(now())
+  shopClose         DateTime @default(now())
+  shopType          ShopType @default(SUPERMARKET)
+  productShop       ProductShop[]
+}
+
+model Category { 
+    categoryId      String @default(uuid()) @id
+    category        CategoryType @default(MEAT) @unique
+    subcategories   Subcategory[]
+}
+
+model Subcategory { 
+  subcategoryId   String   @default(uuid()) @id
+  subcategoryName String   @unique
+  categorySubcategoryId      String
+  category        Category  @relation(fields: [categorySubcategoryId], references: [categoryId], onDelete: Cascade)
+  products        Product[]
+}
+
+enum CategoryType { 
+  MEAT
+  FISH
+  SEMI_FINISHED_PRODUCTS
+  DAIRY
+  VEGETABLES_AND_FRUITS
+  BAKERY_AND_CONFECTIONERY
+  DRINKS
+  ALCOHOL
+  CONSERVATION
+  SAUCES_AND_OIL
+  HOUSEHOLD_CHEMICALS
+}
+
+enum DeliveryMethod {
+  HOME_DELIVERY
+  DELIVERY_POINT
+  STORE
+}
+
+enum PaymentMethod {
+  UPON_RECEIPT
+  NOW
+}
+
+enum ShopType {
+  WAREHOUSE
+  FOODSTORE
+  SUPERMARKET
+  PICKUP
+}
+
+enum Role {
+  ADMIN
+  USER
+  MODERATOR
+}
