@@ -21,13 +21,13 @@ export class UpdateDeliveryDto {
    @IsOptional()
    deliveryAddress: string
 
-   @ApiProperty({
-      type: String,
-      required: false,
-   })
-   @IsString()
-   @IsOptional()
-   deliveryCity: string
+   // @ApiProperty({
+   //    type: String,
+   //    required: false,
+   // })
+   // @IsString()
+   // @IsOptional()
+   // deliveryCity: string
 
    @ApiProperty({
       type: String,

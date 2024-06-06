@@ -53,7 +53,7 @@ model Delivery {
   deliveryId        String @default(uuid()) @id
   deliveryMethod    DeliveryMethod  @default(STORE)
   deliveryAddress   String?
-  deliveryCity      String?
+  //deliveryCity      String?
   deliveryPrice     String
   order             Order @relation(fields: [deliveryOrderId], references: [orderId], onDelete: Cascade)
   deliveryOrderId   String @unique

@@ -1,5 +1,6 @@
 {
-  "name": "clever-shop",
+  "name": "clever-shop-back",
+  "homepage": "https://vladveriasov.github.io/clever-shop",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -7,6 +8,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -27,6 +30,7 @@
     "@nestjs/swagger": "^7.3.1",
     "@prisma/client": "^5.13.0",
     "class-validator": "^0.14.1",
+    "gh-pages": "^6.1.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.0"

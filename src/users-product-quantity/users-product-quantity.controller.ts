@@ -1,7 +1,8 @@
 import { Controller,  Body, Delete, Get, HttpCode, Param, Post, Put  } from '@nestjs/common';
 import { UsersProductQuantityService } from './users-product-quantity.service';
 import { UsersProductQuantityDto } from './dtos/users-product-quantity.dto';
-import { UpdateUsersProductQuantityDto } from './dtos/UpdateUsers-product-quantity';
+import { UpdateUsersProductQuantityDto } from './dtos/updateUsers-product-quantity.dto';
+// import { UpdateUsersProductQuantityDto } from 'src/product-shop/dtos/updateUsers-product-quantity.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('users-product-quantity')

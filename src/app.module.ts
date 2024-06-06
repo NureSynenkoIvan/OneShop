@@ -14,9 +14,10 @@ import { UsersProductQuantityModule } from './users-product-quantity/users-produ
 import { ProductShopModule } from './product-shop/product-shop.module';
 import { CategoryModule } from './category/category.module';
 import { SubcategoryModule } from './subcategory/subcategory.module';
+import { DownloadModule } from './download/download.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UserModule, OrderModule, BasketModule, ProductModule, ShopModule, OrderProductQuantityModule, DeliveryModule, UsersProductQuantityModule, ProductShopModule, CategoryModule, SubcategoryModule],
+  imports: [ConfigModule.forRoot(), UserModule, OrderModule, BasketModule, ProductModule, ShopModule, OrderProductQuantityModule, DeliveryModule, UsersProductQuantityModule, ProductShopModule, CategoryModule, SubcategoryModule, DownloadModule],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

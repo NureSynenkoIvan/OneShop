@@ -18,11 +18,11 @@ export class DeliveryDto {
    @IsString()
    deliveryAddress: string
 
-   @ApiProperty({
-      type: String,
-   })
-   @IsString()
-   deliveryCity: string
+   // @ApiProperty({
+   //    type: String,
+   // })
+   // @IsString()
+   // deliveryCity: string
 
    @ApiProperty({
       type: String,
