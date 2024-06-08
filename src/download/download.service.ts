@@ -14,7 +14,7 @@ export class DownloadService {
 
   fileStream() {
     console.log(process.cwd())
-    return createReadStream(join(process.cwd(),  'download', 'app-x86_64-release.apk'));
+    return createReadStream(join(process.cwd(),  'download', 'shopit.apk'));
     
   }
 }
