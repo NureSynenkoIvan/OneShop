@@ -56,7 +56,6 @@ CREATE TABLE "Delivery" (
     "deliveryId" TEXT NOT NULL,
     "deliveryMethod" "DeliveryMethod" NOT NULL DEFAULT 'STORE',
     "deliveryAddress" TEXT,
-    -- "deliveryCity" TEXT,
     "deliveryPrice" TEXT NOT NULL,
     "deliveryOrderId" TEXT NOT NULL,
 
